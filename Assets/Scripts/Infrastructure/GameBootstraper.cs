@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 namespace Infrastructure
 {
-    public class GameBootstraper : MonoBehaviour
+    public class GameBootstraper : MonoBehaviour, ICoroutineRunner
     {
         private Game _game;
         
