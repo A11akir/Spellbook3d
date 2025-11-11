@@ -7,9 +7,9 @@ namespace Infrastructure
         public GameStateMachine StateMachine;
         public static IInputServices InputService;
 
-        public Game()
+        public Game(ICoroutineRunner coroutineRunner)
         {
-            StateMachine = new GameStateMachine();
+            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
         }
     }
 }
