@@ -1,3 +1,5 @@
+using Infrastructure.States;
+using Logic;
 using UnityEngine;
 
 namespace Infrastructure
@@ -6,9 +8,11 @@ namespace Infrastructure
     {
         private Game _game;
         
+        public LoadingCurtain LoadingCurtain;
+        
         private void Awake()
         {
-            _game = new Game(this);
+            _game = new Game(this, LoadingCurtain);
             _game.StateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(this);
         }

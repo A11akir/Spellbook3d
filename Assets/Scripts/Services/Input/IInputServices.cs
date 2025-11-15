@@ -1,8 +1,9 @@
+using Infrastructure.Services;
 using UnityEngine;
 
 namespace Services.Input
 {
-    public interface IInputServices
+    public interface IInputServices : IService
     {
         Vector2 Axis { get; }
 
