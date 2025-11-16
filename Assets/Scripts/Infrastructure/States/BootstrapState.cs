@@ -1,6 +1,7 @@
 using Infrastructure.AssetManagment;
 using Infrastructure.Factory;
 using Infrastructure.Services;
+using Infrastructure.Services.SaveLoad;
 using Services.Input;
 using Services.PersistentProgress;
 
@@ -30,7 +31,7 @@ namespace Infrastructure.States
 
         private void EnterLoadLevel()
         {
-            _stateMachine.Enter<LoadLevelState, string>("Main");
+            _stateMachine.Enter<LoadProgressState>();
         }
 
         private void RegisterServices()
@@ -39,6 +40,8 @@ namespace Infrastructure.States
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
+            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(),_services.Single<IGameFactory>()));
+
         }
 
         public void Exit()
