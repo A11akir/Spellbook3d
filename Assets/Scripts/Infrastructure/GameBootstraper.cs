@@ -8,11 +8,11 @@ namespace Infrastructure
     {
         private Game _game;
         
-        public LoadingCurtain LoadingCurtain;
+        public LoadingCurtain LoadingCurtainPrefab;
         
         private void Awake()
         {
-            _game = new Game(this, LoadingCurtain);
+            _game = new Game(this, Instantiate(LoadingCurtainPrefab));
             _game.StateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(this);
         }

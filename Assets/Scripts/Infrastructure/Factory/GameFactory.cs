@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Infrastructure.AssetManagment;
 using Services.PersistentProgress;
@@ -8,15 +9,23 @@ namespace Infrastructure.Factory
     public class GameFactory : IGameFactory
     {
         private readonly IAssetProvider _assetProvider;
-        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();       
+        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
+        public GameObject HeroGameObject { get; set; }
+        public event Action HeroCreated;
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
         
         public GameFactory(IAssetProvider assetProvider)
         {
             _assetProvider = assetProvider;
         }
-        public GameObject CreateHero(GameObject initialPoint) => 
-            InstantiateRegistered(AssetPath.PLAYER_PATH, initialPoint.transform.position);
+
+        public GameObject CreateHero(GameObject initialPoint)
+        {
+            HeroGameObject = InstantiateRegistered(AssetPath.PLAYER_PATH, initialPoint.transform.position);
+            HeroCreated?.Invoke();
+            return HeroGameObject;
+        }
+            
 
         private void RegisterProgressWatchers(GameObject gameObject)
         {

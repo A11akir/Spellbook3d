@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Infrastructure.Services;
 using Services.PersistentProgress;
@@ -9,6 +10,10 @@ namespace Infrastructure.Factory
     {
          GameObject CreateHero(GameObject initialPoint);
          List<ISavedProgressReader> ProgressReaders { get; }
+
+         GameObject HeroGameObject { get; }
+         
+         event Action HeroCreated;
          List<ISavedProgress> ProgressWriters { get; }
          void Cleanup();
     }
