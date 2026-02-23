@@ -33,7 +33,13 @@ namespace Infrastructure.States
 
         private PlayerProgress NewProgress()
         {
-             return new PlayerProgress("Main");
+            var progress = new PlayerProgress();
+
+            progress.HeroState.MaxHP = 50;
+            progress.HeroState.ResetHP();
+            
+            return progress;
         }
+        
     }
 }
